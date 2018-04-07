@@ -1,0 +1,47 @@
+/* Developed by Pierre Macedo */
+
+class Mpreviewer extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      input: 'Heading\n=======\n\nSub-heading\n-----------\n \n### Another deeper heading\n \nParagraphs are separated\nby a blank line.\n\nLeave 2 spaces at the end of a line to do a  \nline break\n\nText attributes *italic*, **bold**, \n`monospace`, ~~strikethrough~~ .\n\nShopping list:\n\n  * apples\n  * oranges\n  * pears\n\nNumbered list:\n\n  1. apples\n  2. oranges\n  3. pears\n\nThe rain---not the reign---in\nSpain.\n\n *[Herman Fassett](https://freecodecamp.com/hermanfassett)*'
+    };
+    this.updateInput = this.updateInput.bind(this);
+  }
+  updateInput(event) {
+    this.setState({ input: event.target.value });
+  }
+    
+  render() {
+    let inputStyle = {
+      border: '1px solid black', width: '100%', height: '400px', paddingTop: '10px'
+    };
+    let outputStyle = {paddingTop: '10px'    
+    };
+    return (
+      <div>
+        <div style={{marginTop: '30px', fontSize: '40px', marginLeft: '15px'}}>Markdown Previewer</div>
+        <div style={{marginTop: '30px'}} className="container-fluid">
+          <div className="row">
+            <div className="col-sm-6">
+            <textarea
+          type="text"
+          style={inputStyle}
+          value={this.state.input}
+          onChange={this.updateInput}  /></div>
+            <div className="col-sm-6" style={outputStyle} dangerouslySetInnerHTML={{ __html: marked(this.state.input) }}>
+
+            </div>
+          </div>
+        
+        </div>
+      </div>
+    );
+  }
+};
+
+ReactDOM.render(
+  <Mpreviewer />,
+  document.getElementById('main')
+);
+
